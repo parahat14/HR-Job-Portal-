@@ -1,0 +1,275 @@
+/* jobapplicant.css - Styles for jobapplicant.blade.php */
+
+/* Kolom kecil */
+table#applicantsTable td.small-col,
+table#applicantsTable th.small-col {
+    width: 60px !important;
+    max-width: 60px !important;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.no-border {
+    border: none !important;
+}
+
+.grid {
+    width: 100%;
+}
+
+select,
+textarea,
+input {
+    width: 100%;
+}
+
+table.dataTable {
+    width: 100% !important;
+    min-width: 0 !important;
+    table-layout: fixed;
+}
+
+table.dataTable th,
+table.dataTable td {
+    white-space: normal;
+    word-wrap: break-word;
+}
+
+.dataTables_wrapper {
+    width: 100%;
+}
+
+@media (max-width: 600px) {
+    .dataTables_wrapper {
+        padding: 0 10px;
+    }
+}
+
+#jobpostingsTable_filter {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+#jobpostingsTable_filter label {
+    margin-right: 2px;
+}
+
+#jobpostingsTable_filter input {
+    width: 200px;
+}
+
+#jobpostingsTable_wrapper {
+    margin-top: 20px;
+    width: 100%;
+}
+
+#applicantsContainer_wrapper {
+    margin-top: 20px;
+    width: 100%;
+}
+
+#jobpostingsTable td {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+#jobpostingsTable th,
+#jobpostingsTable td {
+    padding: 10px;
+    max-width: 200px;
+}
+
+#jobpostingsTable_length {
+    width: auto;
+    display: flex;
+    justify-content: flex-start;
+}
+
+#jobpostingsTable_length select {
+    width: auto;
+    padding: 5px;
+    min-width: 80px;
+}
+
+#jobpostingsTable_length select option {
+    padding: 5px;
+}
+
+#jobpostingsTable_info {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.dataTables_paginate {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+#jobpostingsTable tbody tr td {
+    padding: 8px 8px;
+    line-height: 2;
+}
+
+#jobpostingsTable tbody tr {
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+#jobpostingsTable tbody tr:hover {
+    background-color: #8f8f8f11;
+    opacity: 100%;
+    cursor: pointer;
+}
+
+#jobpostingsTable tbody tr:hover td {
+    color: black;
+}
+
+/* Applicant Table */
+#applicantsTable_filter {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+#applicantsTable_filter label {
+    margin-right: 2px;
+}
+
+#applicantsTable_filter input {
+    width: 200px;
+}
+
+#applicantsTable_wrapper {
+    margin-top: 20px;
+    width: 100%;
+}
+
+#applicantsTable td {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+#applicantsTable th,
+#applicantsTable td {
+    padding: 10px;
+    max-width: 200px;
+}
+
+#applicantsTable_length {
+    width: auto;
+    display: flex;
+    justify-content: flex-start;
+}
+
+#applicantsTable_length select {
+    width: auto;
+    padding: 5px;
+    min-width: 80px;
+}
+
+#applicantsTable_length select option {
+    padding: 5px;
+}
+
+#applicantsTableinfo {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.dataTables_paginate {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+#applicantsTable tbody tr td {
+    padding: 8px 8px;
+    line-height: 2;
+}
+
+#applicantsTable tbody tr {
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+#applicantsTable tbody tr:hover {
+    background-color: #8f8f8f11;
+    opacity: 100%;
+    cursor: pointer;
+}
+
+#applicantsTable tbody tr:hover td {
+    color: black;
+}
+
+/* ✅ Custom Switch Button */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 40px;
+    height: 22px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+    border-radius: 34px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 16px;
+    width: 16px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+}
+
+input:checked+.slider {
+    background-color: #4CAF50;
+}
+
+input:checked+.slider:before {
+    transform: translateX(18px);
+}
+
+/* ✅ Memperkecil Lebar Kolom Actions */
+#jobpostingsTable th:nth-child(1),
+#jobpostingsTable td:nth-child(1) {
+    width: 120px;
+    text-align: center;
+}
+
+#jobpostingsTable th:nth-child(4),
+#jobpostingsTable td:nth-child(4) {
+    width: 120px;
+    text-align: center;
+}
+
+#w-full {
+    width: 100% !important;
+}
+
+.edu-col.hidden {
+    display: none;
+}

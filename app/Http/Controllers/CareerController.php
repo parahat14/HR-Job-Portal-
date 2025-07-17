@@ -44,7 +44,7 @@ use App\Models\Agenda;
 use Mail;
 use PhpOffice\PhpWord\TemplateProcessor;
 use PDF;
-use Storage;
+// use Storage;
 use Illuminate\Support\Str;
 use App\Models\JobApply;
 use App\Models\MPsychotest;
@@ -52,7 +52,8 @@ use App\Models\Payrollconfirm;
 use App\Models\Msonboarding;
 use App\Models\Tronboarding;
 use Illuminate\Support\Facades\Crypt;
-
+use Google\Cloud\Storage\StorageClient;
+use Illuminate\Support\Facades\Storage;
 
 class CareerController extends Controller
 {
@@ -250,9 +251,34 @@ class CareerController extends Controller
         }
 
         $year = now()->year;
-        $photo = 'http://127.0.0.1:7777/attachments/'.$year.'/'.$applicant->upload_photo;
-        $cv = 'http://127.0.0.1:7777/attachments/'.$year.'/'.$applicant->upload_cv;
-        $coverletter = 'http://127.0.0.1:7777/attachments/'.$year.'/'.$applicant->upload_coverletter;
+        // $photo = 'https://storage.googleapis.com/pkwjkt-attachment/' . $applicant->upload_photo;
+        // $cv = 'https://storage.googleapis.com/pkwjkt-attachment/' . $applicant->upload_cv;
+        // $coverletter = 'https://storage.googleapis.com/pkwjkt-attachment/' . $applicant->upload_coverletter;
+
+        $config = config('filesystems.disks.gcs');
+        // Pastikan StorageClient di-import dan digunakan dengan benar
+        $storage = new StorageClient([
+            'projectId'   => $config['project_id'],
+            'keyFilePath' => $config['key_file'],
+        ]);
+
+        $bucket = $storage->bucket($config['bucket']);
+        $expiration = \Carbon\Carbon::now()->addMinutes(30);
+
+        $photo = null;
+        $cv = null;
+        $coverletter = null;
+
+        if (!empty($applicant->upload_photo)) {
+            $object = $bucket->object($applicant->upload_photo);
+            // signedUrl expects DateTimeInterface
+            $photo = $object->signedUrl($expiration);
+        }
+
+        if (!empty($applicant->upload_cv)) {
+            $object = $bucket->object($applicant->upload_cv);
+            $cv = $object->signedUrl($expiration);
+        }
 
         $agenda = Agenda::where('refid', $career->docid)->get();
         $userlist = User::where('status','A')->get();
@@ -1560,8 +1586,26 @@ class CareerController extends Controller
         $company = Company::where('cpnyid', $request->cpnyid)->first();
         $datebirth = Carbon::parse($applicant->date_of_birth)->translatedFormat('d F Y');
 
-        $year = now()->year;
-        $photo = 'http://127.0.0.1:7777/attachments/'.$year.'/'.$applicant->upload_photo;
+        $year = now()->year;        
+        // $photo = 'https://storage.googleapis.com/pkwjkt-attachment/' . $applicant->upload_photo;
+        
+        $config = config('filesystems.disks.gcs');
+        // Pastikan StorageClient di-import dan digunakan dengan benar
+        $storage = new StorageClient([
+            'projectId'   => $config['project_id'],
+            'keyFilePath' => $config['key_file'],
+        ]);
+
+        $bucket = $storage->bucket($config['bucket']);
+        $expiration = \Carbon\Carbon::now()->addMinutes(30);
+
+        $photo = null;
+        
+        if (!empty($applicant->upload_photo)) {
+            $object = $bucket->object($applicant->upload_photo);
+            // signedUrl expects DateTimeInterface
+            $photo = $object->signedUrl($expiration);
+        }
 
         $applicant_family = ApplicantFamily::where('applicant_id', $applicant->applicant_id)->get();       
         $applicant_marital = ApplicantMarital::where('applicant_id', $applicant->applicant_id)->get();
